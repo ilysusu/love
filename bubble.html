@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>正能量气泡（优化版）</title>
+    <title>气泡</title>
     <style>
         * {
             margin: 0;
@@ -40,37 +39,92 @@
             color: white;
             font-weight: 500;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
             opacity: 0;
-            transform: scale(0);
-            animation: popAndFade 4s ease-in-out forwards;
             user-select: none;
             max-width: 80%;
             text-align: center;
             font-size: clamp(0.9rem, 3vw, 1rem);
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        @keyframes popAndFade {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            20% {
-                transform: scale(1.1);
-                opacity: 0.9;
-            }
-            70% {
-                transform: scale(1);
-                opacity: 0.9;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0;
-            }
+        /* 随机动画效果类 */
+        .float-up {
+            animation: floatUp 6s ease-in-out forwards;
+        }
+        
+        .float-down {
+            animation: floatDown 6s ease-in-out forwards;
+        }
+        
+        .float-left {
+            animation: floatLeft 6s ease-in-out forwards;
+        }
+        
+        .float-right {
+            animation: floatRight 6s ease-in-out forwards;
+        }
+        
+        .wiggle {
+            animation: wiggle 6s ease-in-out forwards;
+        }
+        
+        .pulse {
+            animation: pulse 6s ease-in-out forwards;
         }
 
-        /* 防止小屏幕上文字溢出 */
+        /* 动画关键帧定义 */
+        @keyframes floatUp {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            20% { transform: translate(0, 0) scale(1.1); opacity: 0.9; }
+            80% { transform: translate(0, -300px) scale(1); opacity: 0.9; }
+            100% { transform: translate(0, -400px) scale(0.8); opacity: 0; }
+        }
+        
+        @keyframes floatDown {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            20% { transform: translate(0, 0) scale(1.1); opacity: 0.9; }
+            80% { transform: translate(0, 300px) scale(1); opacity: 0.9; }
+            100% { transform: translate(0, 400px) scale(0.8); opacity: 0; }
+        }
+        
+        @keyframes floatLeft {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            20% { transform: translate(0, 0) scale(1.1); opacity: 0.9; }
+            80% { transform: translate(-300px, 50px) scale(1); opacity: 0.9; }
+            100% { transform: translate(-400px, 80px) scale(0.8); opacity: 0; }
+        }
+        
+        @keyframes floatRight {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            20% { transform: translate(0, 0) scale(1.1); opacity: 0.9; }
+            80% { transform: translate(300px, -50px) scale(1); opacity: 0.9; }
+            100% { transform: translate(400px, -80px) scale(0.8); opacity: 0; }
+        }
+        
+        @keyframes wiggle {
+            0% { transform: translate(0, 0) scale(0) rotate(0deg); opacity: 0; }
+            20% { transform: translate(0, 0) scale(1.1) rotate(0deg); opacity: 0.9; }
+            30% { transform: translate(10px, -5px) scale(1) rotate(5deg); }
+            40% { transform: translate(-10px, 5px) scale(1) rotate(-5deg); }
+            50% { transform: translate(10px, -5px) scale(1) rotate(5deg); }
+            60% { transform: translate(-10px, 5px) scale(1) rotate(-5deg); }
+            80% { transform: translate(0, -200px) scale(1) rotate(0deg); opacity: 0.9; }
+            100% { transform: translate(0, -300px) scale(0.8) rotate(0deg); opacity: 0; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            20% { transform: translate(0, 0) scale(1.1); opacity: 0.9; }
+            30% { transform: translate(0, 0) scale(0.9); }
+            40% { transform: translate(0, 0) scale(1.1); }
+            50% { transform: translate(0, 0) scale(0.9); }
+            60% { transform: translate(0, 0) scale(1.1); }
+            80% { transform: translate(0, 200px) scale(1); opacity: 0.9; }
+            100% { transform: translate(0, 300px) scale(0.8); opacity: 0; }
+        }
+
         @media (max-width: 480px) {
             .bubble {
                 padding: 6px 12px;
@@ -79,10 +133,8 @@
         }
     </style>
 </head>
-
 <body>
     <script>
-        // 正能量话语列表
         const positiveMessages = [
             "☀️ 每天都要元气满满",
             "💭 我想你了",
@@ -102,58 +154,88 @@
             "😊 今天过得开心嘛"
         ];
 
-        // 随机颜色列表（增加了透明度）
+        // 带透明度的柔和颜色
         const colors = [
-            'rgba(255, 107, 107, 0.8)', 
-            'rgba(78, 205, 196, 0.8)', 
-            'rgba(69, 183, 209, 0.8)', 
-            'rgba(150, 206, 180, 0.8)', 
-            'rgba(255, 238, 173, 0.8)',
-            'rgba(212, 165, 165, 0.8)', 
-            'rgba(155, 89, 182, 0.8)', 
-            'rgba(52, 152, 219, 0.8)', 
-            'rgba(46, 204, 113, 0.8)', 
-            'rgba(230, 126, 34, 0.8)'
+            'rgba(255, 107, 107, 0.85)', 
+            'rgba(78, 205, 196, 0.85)', 
+            'rgba(69, 183, 209, 0.85)', 
+            'rgba(150, 206, 180, 0.85)', 
+            'rgba(255, 238, 173, 0.85)',
+            'rgba(212, 165, 165, 0.85)', 
+            'rgba(155, 89, 182, 0.85)', 
+            'rgba(52, 152, 219, 0.85)', 
+            'rgba(46, 204, 113, 0.85)', 
+            'rgba(230, 126, 34, 0.85)'
         ];
 
-        // 生成随机气泡
+        // 动画效果类列表
+        const animationClasses = [
+            'float-up', 
+            'float-down', 
+            'float-left', 
+            'float-right', 
+            'wiggle', 
+            'pulse'
+        ];
+
         function createBubble() {
             const bubble = document.createElement('div');
             bubble.className = 'bubble';
 
-            // 随机选择话语和颜色
+            // 随机选择内容、颜色和动画效果
             const randomMessage = positiveMessages[Math.floor(Math.random() * positiveMessages.length)];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            const randomAnimation = animationClasses[Math.floor(Math.random() * animationClasses.length)];
+            
+            // 随机大小（1.0-1.3倍）
+            const randomSize = 1 + Math.random() * 0.3;
 
             bubble.innerText = randomMessage;
             bubble.style.backgroundColor = randomColor;
+            bubble.classList.add(randomAnimation);
+            bubble.style.transform = `scale(${randomSize})`;
 
-            // 随机水平位置（在屏幕范围内）
-            const maxLeft = window.innerWidth - 100; // 减去气泡大致宽度
-            const maxTop = window.innerHeight - 60;  // 减去气泡大致高度
+            // 随机位置
+            const maxLeft = window.innerWidth - 120;
+            const maxTop = window.innerHeight - 80;
             bubble.style.left = Math.random() * maxLeft + 'px';
             bubble.style.top = Math.random() * maxTop + 'px';
 
+            // 添加互动效果 - 点击时放大并改变颜色
+            bubble.addEventListener('click', () => {
+                bubble.style.transform = `scale(${randomSize * 1.5})`;
+                bubble.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+                
+                // 随机新颜色
+                const newColor = colors[Math.floor(Math.random() * colors.length)];
+                bubble.style.backgroundColor = newColor;
+                
+                // 100ms后恢复
+                setTimeout(() => {
+                    bubble.style.transform = `scale(${randomSize})`;
+                    bubble.style.boxShadow = '0 2px 15px rgba(0,0,0,0.2)';
+                }, 100);
+            });
+
             document.body.appendChild(bubble);
 
-            // 动画结束后移除元素（与动画时间一致）
+            // 动画结束后移除
             setTimeout(() => {
                 bubble.remove();
-            }, 4000);
+            }, 6000);
         }
 
-        // 控制气泡生成频率，根据屏幕宽度调整
-        const intervalTime = window.innerWidth < 768 ? 300 : 200;
+        // 控制生成频率
+        const intervalTime = window.innerWidth < 768 ? 400 : 300;
         
-        // 每隔一段时间生成新气泡
+        // 定时生成气泡
         setInterval(createBubble, intervalTime);
 
-        // 初始生成一些气泡，数量根据屏幕大小调整
-        const initialBubbles = window.innerWidth < 768 ? 8 : 12;
+        // 初始生成
+        const initialBubbles = window.innerWidth < 768 ? 6 : 10;
         for (let i = 0; i < initialBubbles; i++) {
             setTimeout(createBubble, i * intervalTime);
         }
     </script>
 </body>
-
 </html>
