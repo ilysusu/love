@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正能量气泡（放大消失版）</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .bubble {
+            position: absolute;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            /* 初始透明 */
+            transform: scale(0);
+            /* 初始缩小 */
+            animation: popAndFade 3s ease-in-out forwards;
+            user-select: none;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        @keyframes popAndFade {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.2);
+                /* 稍微放大一点 */
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                /* 恢复到正常大小 */
+                opacity: 1;
+                /* 完全透明消失 */
+            }
+        }
+
+        h1 {
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            top: 20px;
+            z-index: 100;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // 正能量话语列表
+        const positiveMessages = [
+            "你比你想象的更强大！",
+            "每天都是新的开始，加油！",
+            "相信自己，你能做到！",
+            "努力不会白费，未来可期！",
+            "你是独一无二的，世界需要你！",
+            "微笑面对，一切都会好起来！",
+            "坚持下去，成功就在下一步！",
+            "心怀感恩，幸福自来！",
+            "每一次挑战都是成长的机会！",
+            "你值得所有的美好！",
+            "不要害怕失败，害怕才可怕！",
+            "今天的你比昨天更优秀！",
+            "梦想一定要有，万一实现了呢？",
+            "积极的心态改变一切！",
+            "你是自己的超级英雄！",
+            "快乐源于内心，保持微笑！",
+            "努力的人终将被世界温柔以待！",
+            "时间会证明一切，继续前进！",
+            "你若盛开，清风自来！",
+            "今天的辛苦，明天会感谢你！",
+            "跌倒是为了更稳地站起，继续走！",
+            "你的潜力像星空，永远有未被发现的璀璨",
+            "今天的小进步，明天的大飞跃",
+            "允许自己不完美，但别停止变好",
+            "你眼中的光，能照亮整个世界",
+            "每个‘我做不到’都是成长的邀请函",
+            "世界会为勇敢的人让路",
+            "你比自己以为的更接近成功",
+            "温柔对待自己，就像对待最珍贵的朋友",
+            "今天的汗水，是明天的勋章",
+            "别让‘不可能’困住‘可能’的你",
+            "你值得被认真对待，尤其是来自自己的",
+            "每一步坚持都在改写人生的剧本",
+            "你的笑容，是这个世界最美的风景",
+            "再小的光，也能照亮属于自己的角落",
+            "把‘我不行’换成‘我再试试’",
+            "你正在成为自己曾经羡慕的人",
+            "今天的你，已经赢了昨天的自己",
+            "宇宙正在悄悄为你准备惊喜",
+            "你的存在，本身就是一种美好"
+        ];
+
+        // 随机颜色列表
+        const colors = [
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD',
+            '#D4A5A5', '#9B59B6', '#3498DB', '#2ECC71', '#E67E22'
+        ];
+
+        // 生成随机气泡
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+
+            // 随机选择话语和颜色
+            const randomMessage = positiveMessages[Math.floor(Math.random() * positiveMessages.length)];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            // bubble.textContent = randomMessage;
+            bubble.innerText = randomMessage;
+            bubble.style.backgroundColor = randomColor;
+
+            // 随机水平位置（在屏幕范围内）
+            bubble.style.left = Math.random() * 80 + 10 + 'vw'; // 10%~90% 屏幕宽度
+            bubble.style.top = Math.random() * 80 + 10 + 'vh'; // 10%~90% 屏幕高度
+
+            document.body.appendChild(bubble);
+
+            // 动画结束后移除元素
+            setTimeout(() => {
+                // bubble.remove();
+            }, 3000); // 与动画时间一致（3s）
+        }
+
+        // 每隔一段时间生成新气泡
+        setInterval(createBubble, 200);
+
+        // 初始生成一些气泡
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createBubble, i * 200);
+        }
+    </script>
+</body>
+
+</html>
